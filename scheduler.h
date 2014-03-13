@@ -12,6 +12,29 @@ class Scheduler {
 		std::queue<Request> jobs;
 		std::queue<Request> resources;
 
+		void printSchedule(Request _job, std::queue<Request> _resources){
+			std::cout << "Scheduled job for " << _job.size << " resources: ";
+			double resourceAvailability = 0;
+			while (!_resources.empty()) {
+				std::cout << _resources.front().size << ", ";
+				resourceAvailability += waitTime(_resources.front());
+				_resources.pop();
+			}
+			std::cout << " job wait time: " << waitTime(_job);
+			std::cout << " . Resource available time: " << resourceAvailability;
+			std::cout << std::endl;
+		}
+
+		double waitTime(Request req){
+			std::chrono::high_resolution_clock::time_point current = 
+				std::chrono::high_resolution_clock::now(); 
+			std::chrono::duration<double> time_span = 
+				std::chrono::duration_cast< std::chrono::duration<double> > 
+					(current - req.insert);	
+				return time_span.count();
+		}
+
+		virtual void schedule() = 0;
 	public:
 		virtual ~Scheduler(){
 
@@ -25,17 +48,6 @@ class Scheduler {
 			resources.push(Request(resource));
 			schedule();
 		}
-
-		void printSchedule(Request _job, std::queue<Request> _resources){
-			std::cout << "Scheduled job for " << _job.size << " resources: ";
-			while (!_resources.empty()) {
-				std::cout << _resources.front().size << ", ";
-				_resources.pop();
-			}
-			std::cout << std::endl;
-		}
-
-		virtual void schedule() = 0;
 };
 
 #endif //SCHEDULER_H
