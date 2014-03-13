@@ -8,8 +8,6 @@
 
 class Fifo : public Scheduler {
 public:
-	void addJob(int job);
-	void addResource(int resource);
 	void schedule();
 };
 

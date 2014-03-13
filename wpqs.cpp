@@ -1,15 +1,20 @@
-#include "fifo.h"
+#include "wpqs.h"
+#include <iostream>
 
-void Fifo::schedule(){
-	while (jobs.size() > 0){
-		Request head = jobs.front();
+void Wpqs::addJob(int job){
+	priority_jobs.push(job);
+}
+
+void Wpqs::schedule(){
+	while (priority_jobs.size() > 0){
+		Request head = priority_jobs.top();
 		if (head.size <= resources.size()){
 			std::queue<Request> _resources;
 			for (int i = 0; i < head.size; i++){
 				_resources.push(resources.front());
 				resources.pop();
 			}
-			jobs.pop();
+			priority_jobs.pop();
 			printSchedule(head, _resources);
 		} else {
 			break;
