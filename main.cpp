@@ -5,7 +5,12 @@
 #include "fifo.h"
 #include "wpqs.h"
 
+#define UNUSED(expr) do { (void)(expr); } while (0)
+
 int main(int argc, char **argv){
+	UNUSED(argc);
+	UNUSED(argv);
+	
 	Fifo f;
 	f.addJob(2);
 	f.addJob(9);

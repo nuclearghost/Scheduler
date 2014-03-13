@@ -7,9 +7,9 @@
 
 class Request {
 public:
-	int size;
+	unsigned long size;
 	std::chrono::high_resolution_clock::time_point insert;
-	Request(int _size){
+	Request(unsigned long _size){
 		size = _size;
 		insert = std::chrono::high_resolution_clock::now();
 	}

@@ -17,13 +17,12 @@ private:
 			std::chrono::duration_cast< std::chrono::duration<double> > 
 				(current - req.insert);
 
-		double returnVal = 1 + (time_span.count() / req.size);
-		std::cout << req.size << ":" << returnVal << std::endl;
-		return returnVal;
+		return 1 + (time_span.count() / req.size);
 	}
 public:
 	bool operator() (const Request& lhs, const Request& rhs) const {
-		return priority(lhs) > priority(rhs);
+		//return priority(lhs) > priority(rhs);
+		return lhs.size > rhs.size;
 	}
 };
 
@@ -32,7 +31,7 @@ class Wpqs : public Scheduler {
 private:
 	std::priority_queue<Request, std::vector<Request>, priorityComparison> priority_jobs;
 public:
-	void addJob(int job);
+	void addJob(unsigned long job);
 	void schedule();
 };
 

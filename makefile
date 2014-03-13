@@ -10,16 +10,7 @@ all: tester
 #	clang++ -std=c++11 -stdlib=libc++ -Weverything main.cpp -o hello
 
 tester:
-	$(CC) $(CFLAGS) fifo.cpp wpqs.cpp main.cpp -o tester
-
-hello: main.o fifo.o
-	$(CC) main.o fifo.o -o hello
-
-main.o: main.cpp fifo.cpp
-	$(CC) $(CFLAGS) fifo.o main.cpp
-
-fifo.o: fifo.cpp
-	$(CC) $(CFLAGS) fifo.cpp
+	$(CC) $(CFLAGS) scheduler.cpp fifo.cpp wpqs.cpp main.cpp -o tester
 
 clean:
 	rm -rf *o *~ tester
